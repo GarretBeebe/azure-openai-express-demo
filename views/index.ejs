@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="#" />
+  <title>OpenAI Prompt</title>
+</head>
+<body>
+  <h1>OpenAI Prompt</h1>
+  <form action="/submit-prompt" method="POST">
+    <label for="prompt">Enter your prompt:</label>
+    <textarea id="prompt" name="prompt" rows="4" cols="50"></textarea>
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+  <% if (response) { %>
+    <h2>Response:</h2>
+    <p><%= response %></p>
+  <% } %>
+</body>
+</html>
