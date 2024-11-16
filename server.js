@@ -20,10 +20,15 @@ app.post('/submit-prompt', async (req, res) => {
 
   try {
     const response = await axios.post(
-      `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/${process.env.AZURE_OPENAI_DEPLOYMENT}/completions?api-version=2022-12-01`,
+      `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/${process.env.AZURE_OPENAI_DEPLOYMENT}/chat/completions?api-version=2024-08-01-preview`,
       {
-        prompt: prompt,
-        max_tokens: 50
+        messages: [{role: "user", content: prompt}],
+        temperature: 0.7,
+        top_p: 0.95,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+        max_tokens: 800,
+        stop: null
       },
       {
         headers: {
@@ -32,8 +37,7 @@ app.post('/submit-prompt', async (req, res) => {
         }
       }
     );
-
-    res.render('index', { response: response.data.choices[0].text });
+    res.render('index', { response: response.data.choices[0].message.content });
   } catch (error) {
     console.error(error);
     res.render('index', { response: 'Error fetching response from OpenAI API' });
