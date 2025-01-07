@@ -33,14 +33,14 @@ app.post('/submit-prompt', async (req, res) => {
       {
         headers: {
           'Content-Type': 'application/json',
-          'api-key': process.env.AZURE_OPENAI_API_KEY
+          'api-key': process.env.AZURE_OPENAI_KEY
         }
       }
     );
     res.render('index', { response: response.data.choices[0].message.content });
   } catch (error) {
     console.error(error);
-    res.render('index', { response: 'Error fetching response from OpenAI API' });
+    res.render('index', { response: 'Error fetching response from OpenAI API ' + error });
   }
 });
 
